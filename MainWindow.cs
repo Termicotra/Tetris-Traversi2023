@@ -40,7 +40,8 @@ namespace Tetris
             Color.Cyan,     // O pieza
             Color.Gray      // T pieza
         };
-        public MainWindow() 
+        ///////////////////////////////////////////////
+        public MainWindow()     //Constructor
         {
             InitializeComponent();
         }
@@ -70,12 +71,14 @@ namespace Tetris
                     }
                 }
             }
-
-            // Selecciona una nueva pieza de la lista
+            //////////////////////////////////////////////
+            // Selecciona una nueva pieza de la lista   //
+            //////////////////////////////////////////////
             sigtPiezaInt = SecuenciaPieza[SecuenciaIteracionPieza]; //Segun el contador de cuantas veces se hizo el bucle
             SecuenciaIteracionPieza++;                              //Osea la lista se llena y se vacia constantemente de piezas
-
-            // Si no es el primer movimiento, se limpia el panel de pieza siguiente
+            ///////////////////////////////////////////////////////////////////////////
+            // Si no es el primer movimiento, se limpia el panel de pieza siguiente  //
+            ///////////////////////////////////////////////////////////////////////////
             if (PiezaSigt.Contains(null) == false)  //Se comprueba que tenga null para saber si es el primer movimiento
             {
                 foreach (Control x in PiezaSigt)    //Si no por cada variable de control 
@@ -83,8 +86,9 @@ namespace Tetris
                     x.BackColor = Color.White;      //Va a limpiar esa variable, poniendole el color original de inicio que es blanco
                 }
             }
-
-            // Opciones de diseno para la pieza siguiente
+            ////////////////////////////////////////////////
+            // Opciones de diseno para la pieza siguiente //
+            ////////////////////////////////////////////////
             Control[,] SigtPiezaArray =     //Aca se guardan las posiciones que ocuparan en las box, las piezas correspondientes
             {
                 { box203, box207, box211, box215 }, // I pieza      //Por ejemplo la pieza i ocupara todo una linea del panel de siguiente pieza
@@ -95,20 +99,23 @@ namespace Tetris
                 { box206, box207, box210, box211 }, // O pieza
                 { box207, box210, box211, box212 }  // T pieza
             };
-
-            // Recuperar diseno de la siguiente pieza
+            //////////////////////////////////////////////
+            // Recuperar diseno de la siguiente pieza   //
+            //////////////////////////////////////////////
             for (int x = 0; x < 4; x++) //Sabiendo que la piezas tienen 4 bloquesitos
             {
                 PiezaSigt[x] = SigtPiezaArray[sigtPiezaInt, x]; //Se va cargando en el array de pieza siguiente, segun que pieza mediante su valor int
             }                                                    //Y segun que bloquecito carga del array de disenos de piezas
-
-            // Rellena el panel de pieza siguiente con el color correcto
+            //////////////////////////////////////////////////////////////////
+            // Rellena el panel de pieza siguiente con el color correcto    //
+            //////////////////////////////////////////////////////////////////
             foreach (Control square in PiezaSigt)   //Por cada bloquesito
             {
                 square.BackColor = colorList[sigtPiezaInt]; //Se carga el color en el box, de la lista de colores, segun el nro de pieza
             }
-
-            // Opciones de diseno para la pieza cayendo
+            ///////////////////////////////////////////////
+            // Opciones de diseno para la pieza cayendo  //
+            ///////////////////////////////////////////////
             Control[,] PiezaActivaArray =       //Se guarda el diseno de cada pieza en el tablero actual
             {
                 { box6, box16, box26, box36 }, // I pieza   //Por ejemplo se sabe que la pieza i va a ocupar una linea de colores del tablero 
@@ -119,7 +126,7 @@ namespace Tetris
                 { box5, box6, box15, box16 },  // O pieza
                 { box6, box15, box16, box17 }  // T pieza
             };
-
+            ///////////////////////////////////////////////
             // Pieza caida seleccionada
             for (int x = 0; x < 4; x++) //Ya que sabemos que hay 4 bloquecitos por pieza
             {
@@ -131,8 +138,9 @@ namespace Tetris
             {
                 PiezaActiva2[x] = PiezaActivaArray[piezaActual, x]; //Cargamos el bloque asi como hicimos solo que ahora en el array del bloque fantasma
             }
-
-            // Controla que el juego no acabo
+            //////////////////////////////////////
+            // Controla que el juego no acabo   //
+            //////////////////////////////////////
             foreach (Control box in PiezaActiva) //Por cada box que hay en el array de pieza activa
             {
                 if (box.BackColor != Color.White & box.BackColor != Color.LightGray) //Controlamos que el color del box es distinto a los colores de la grilla, se dice que se alcanzo el tope
@@ -146,18 +154,21 @@ namespace Tetris
                     return; //Termina el programa
                 }
             }
-
-            // Se llama a la funcion para dibujar la pieza fantasma
+            ///////////////////////////////////////////////////////////
+            // Se llama a la funcion para dibujar la pieza fantasma  //
+            ///////////////////////////////////////////////////////////
             DibujarFantasma();
-
-            // Rellena los cuadritos del tablero con el color correcto de la pieza activa
+            //////////////////////////////////////////////////////////////////////////////////
+            // Rellena los cuadritos del tablero con el color correcto de la pieza activa   //
+            //////////////////////////////////////////////////////////////////////////////////
             foreach (Control square in PiezaActiva)
             {
                 square.BackColor = colorList[piezaActual]; //Segun el int de la pieza actual se elige el color en la lista y se rellena
             }
         }
-
-        // Se testea que un movimiento (left/right/down) va a estar afuera del grid o se colapsa con una pieza
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Se testea que un movimiento (left/right/down) va a estar afuera del grid o se colapsa con una pieza      //
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public bool TestMovimiento(string direction) //FUncion que devuelve true o false segun si se puede o no hacer un movimiento, y recibe la direccion
         {
             int filaAltaActual = 21;    
@@ -169,7 +180,9 @@ namespace Tetris
 
             Control nuevoCuadrado = new Control(); //Variable del tipo control para el nuevo cuadrado
 
-            // Determina la fila mas alta, mas baja,columnas, izquierda y derecha para el movimiento
+            //////////////////////////////////////////////////////////////////////////////////////////////
+            // Determina la fila mas alta, mas baja,columnas, izquierda y derecha para el movimiento    //
+            //////////////////////////////////////////////////////////////////////////////////////////////
             foreach (Control square in PiezaActiva) //Por cada cuadradito en el array de pieza activa
             {
                 if (grid.GetRow(square) < filaAltaActual) //Controla que al obtener la fila donde esta la ficha sea menor a la fila mas alta
@@ -189,8 +202,9 @@ namespace Tetris
                     columnaDerActual = grid.GetColumn(square);  //Si es asi le asigna esa columna
                 }
             }
-
-            // Controla si cada cuadrito no se va a pasar del grid
+            //////////////////////////////////////////////////////////////
+            // Controla si cada cuadrito no se va a pasar del grid      //
+            //////////////////////////////////////////////////////////////
             foreach (Control square in PiezaActiva)
             {
                 int squareFila = grid.GetRow(square);  //Asigna la fila del cuadrito
@@ -240,12 +254,13 @@ namespace Tetris
                 }
 
             }
-
             // Se controlaron que se pueden hacer los movimientos
             return true; //Entonces se retorna true
         }
-
-        public void MoverPieza(string direction) //Funcion para mover la pieza recibiendo la direccion
+        //////////////////////////////////////////////////////////////
+        // Funcion para mover la pieza recibiendo la direccion      //
+        //////////////////////////////////////////////////////////////
+        public void MoverPieza(string direction) 
         {
             // Borra la vieja posicion de la pieza
             // Y determina la nueva posicion segun la direccion
@@ -276,8 +291,9 @@ namespace Tetris
                 PiezaActiva2[x] = grid.GetControlFromPosition(nuevoCuadradoColum, nuevoCuadradoFila);  //Se obtiene el control que esta en la nueva posicion
                 x++;   //Se mueve el array                                                     //del cuadrado y se asigna al array de la posicion del bloque
             }
-
-            // Se copia el bloque de respaldo al bloque activo
+            //////////////////////////////////////////////////////
+            // Se copia el bloque de respaldo al bloque activo  //
+            //////////////////////////////////////////////////////
             x = 0; //Variable para controlar la posicion dentro del array
             foreach (PictureBox square in PiezaActiva2) //Por cada imagen o box en el array del bloque de posicion
             {
@@ -285,11 +301,13 @@ namespace Tetris
                 PiezaActiva[x] = square; //Asiganamos ese cuadradito al array de la pieza activa segun la posicion
                 x++;
             }
-
-            // Dibujar el bloque fantasma
+            //////////////////////////////////////
+            // Dibujar el bloque fantasma       //
+            //////////////////////////////////////
             DibujarFantasma();
-
-            // Dibuja la nueva posicion de la pieza
+            //////////////////////////////////////////////
+            // Dibuja la nueva posicion de la pieza     //
+            //////////////////////////////////////////////
             x = 0; //se controla la posicion en el array
             foreach (PictureBox square in PiezaActiva2) //Por cada box en el array de posicion de la pieza
             {
@@ -297,8 +315,9 @@ namespace Tetris
                 x++;
             }
         }
-
-        // Testea si la rotacion va a chocar con alguna pieza
+        //////////////////////////////////////////////////////////
+        // Testea si la rotacion va a chocar con alguna pieza   //
+        //////////////////////////////////////////////////////////
         private bool TestColision()
         {
             foreach (PictureBox square in PiezaActiva2) //Por cada box dentro del array de la pieza de respaldo
@@ -310,9 +329,10 @@ namespace Tetris
             }
             return true; //Sino se retorna true para dar valido la rotacion
         }
-
-        // Timer para la velocidad de movimiento de la pieza - aumenta con el nivel del juego
-        // La velocidad se controla con la funcion LevelUp()
+        //////////////////////////////////////////////////////////////////////////////////////////////
+        // Timer para la velocidad de movimiento de la pieza - aumenta con el nivel del juego       //
+        // La velocidad se controla con la funcion LevelUp()                                        //
+        //////////////////////////////////////////////////////////////////////////////////////////////
         private void SpeedTimer_Tick(object sender, EventArgs e) 
         {
             if (CheckGameOver() == true) //Si el juego se acabo
@@ -347,15 +367,17 @@ namespace Tetris
                 }
             }
         }
-
-        // Tiempo de juego en segundos
+        /////////////////////////////////////
+        //  Tiempo de juego en segundos    //
+        /////////////////////////////////////
         private void GameTimer_Tick(object sender, EventArgs e)
         {
             time++; //Aumenta la variable del tiempo
             TimeLabel.Text = "Tiempo: " + time.ToString(); //Asigna el valor al label del tiempo
         }
-
-        // Limpia la fila llena mas baja
+        //////////////////////////////////////
+        // Limpia la fila llena mas baja    //
+        //////////////////////////////////////
         private void ClearFilaLlena()
         {
             int filaCompleta = CheckFilasLlenas();
@@ -383,24 +405,26 @@ namespace Tetris
                     z.BackColor = Color.White;  //Cambia el que era el cuadradito actual al color del grid
                 }
             }
-
+            ///////////////////////////////////////////////
             UpdateScore(); //Actualiza el score
-
+            ///////////////////////////////////////////////
             clears++; //Aumenta el contador de filas limpias
             ClearsLabel.Text = "Filas Limpias: " + clears; //Actualiza el label de las filas limpias
-
+            ///////////////////////////////////////////////
             if (clears % 10 == 0) //Si se limpiaron 10 filas
             {
                 LevelUp();  //Se aumenta de nivel
             }
-                
+            ///////////////////////////////////////////////    
             if (CheckFilasLlenas() > -1) //Comprueba de nuevo Si hay filas llenas
             {
                 ClearFilaLlena(); //Se llama a limpiar la fila
             }
         }
-
-        private void UpdateScore() //Funcion para actualizar el score
+        //////////////////////////////////////////
+        //  Funcion para actualizar el score    //
+        //////////////////////////////////////////
+        private void UpdateScore() 
         {
             // de 1 a 3 lineas limpias tiene valor de 100 por linea
             // Un no combo de cuatro lineas limpiadas equivale a 800
@@ -465,7 +489,7 @@ namespace Tetris
                 ScoreUpdateLabel.Text = "+1200";//Se actualiza el label del score que se gano
                 skipComboReset = true;
             }
-
+            ///////////////////////////////////////////////
             if (CheckFilasLlenas() == -1 && skipComboReset == false) //Si no hay mas filas llenas y el combo se rompio
             {
                 // de 1 a 3 lineas limpias
@@ -476,13 +500,14 @@ namespace Tetris
                 // Si se hace una cuadruple eliminacion de fila
                 combo++;
             }
-
+            ///////////////////////////////////////////////
             ScoreLabel.Text = "Score: " + score.ToString(); //Se actualiza el label del score 
             ScoreUpdateTimer.Start(); //Se inicia el timer del actualizador del score
         }
-
-        // Retorna el numero de la fila llena mas baja
-        // Si no hay filas llenas retorna -1
+        //////////////////////////////////////////////////
+        // Retorna el numero de la fila llena mas baja  //
+        // Si no hay filas llenas retorna -1            //
+        //////////////////////////////////////////////////
         private int CheckFilasLlenas()
         {
             // Por cada fila
@@ -505,8 +530,9 @@ namespace Tetris
             }   //Si no hay filas retorna -1
             return -1; // "null"
         }
-
-        // Aumenta la velocidad de caida
+        //////////////////////////////////////
+        // Aumenta la velocidad de caida    //
+        //////////////////////////////////////
         private void LevelUp()
         {
             nivel++; //Se aumenta el nivel
@@ -526,8 +552,9 @@ namespace Tetris
                 SpeedTimer.Interval = VelocidadNivel[nivel]; //Aumenta el timer de la velocidad segun el nivel 
             }
         }
-
-        // El juego acaba cuando la siguiente pieza toca la fila con la que salen nuevas piezas
+        //////////////////////////////////////////////////////////////////////////////////////////////
+        // El juego acaba cuando la siguiente pieza toca la fila con la que salen nuevas piezas     //
+        //////////////////////////////////////////////////////////////////////////////////////////////
         private bool CheckGameOver() //La funcion devuelve un valor boolean
         {
             Control[] topFila = { box1, box2, box3, box4, box5, box6, box7, box8, box9, box10 }; //Array para saber las posiciones de la fila tope
@@ -541,7 +568,7 @@ namespace Tetris
                     return true; //Se retorna true para declarar un game over
                 }
             }
-
+            ///////////////////////////////////////////////
             if (gameOver == true) //Si ya la variable global se dio como acabada antes
             {
                 bPlay.Visible = true;
@@ -550,34 +577,41 @@ namespace Tetris
 
             return false; //Si no se devuelve falso
         }
-
-        // Limpia el label que actualiza el score cada 2 segundos
+        ////////////////////////////////////////////////////////////////
+        // Limpia el label que actualiza el score cada 2 segundos     //
+        ////////////////////////////////////////////////////////////////
         private void ScoreUpdateTimer_Tick(object sender, EventArgs e)
         {
             ScoreUpdateLabel.Text = ""; //Limpia el label
             ScoreUpdateTimer.Stop();    //Detiene el timer
         }
-
+        //////////////////////////////////////////
+        //  Cuando se cierra el formulario      //
+        //////////////////////////////////////////
         private void MainWindow_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();     //Cuando el form se cierra, se termina la aplicacion
         }
-
-        private void bPlay_Click(object sender, EventArgs e)    //Cuando se le da al boton de play
+        /////////////////////////////////////////////
+        //      Cuando se le da al boton play      //
+        /////////////////////////////////////////////
+        private void bPlay_Click(object sender, EventArgs e)    
         {
             bPlay.Visible = false;
             ScoreUpdateLabel.Text = ""; //Reseteamos el label que actualiza el score
             SpeedTimer.Start();         //Inicializa el temporizador para controlar la velocidad de las piezas
             GameTimer.Start();          //Inicializa el temporizador para controlar el tiempo de juego
-
-            // Inicializa/reset pieza fantasma
-            // Del box1 al box4 son invisibles
+            ///////////////////////////////////////////
+            // Inicializa/reset pieza fantasma       //
+            // Del box1 al box4 son invisibles       //
+            ///////////////////////////////////////////
             PiezaActiva2[0] = box1; //Se almacenan los boxes
             PiezaActiva2[1] = box2;
             PiezaActiva2[2] = box3;
             PiezaActiva2[3] = box4;
-
-            // Generamos la secuencia de pieza
+            //////////////////////////////////////////
+            // Generamos la secuencia de pieza      //
+            //////////////////////////////////////////
             System.Random random = new System.Random(); //Genera un numero random
             while (SecuenciaPieza.Count < 7)  //Hasta que haya 7 piezas
             {
@@ -587,11 +621,12 @@ namespace Tetris
                     SecuenciaPieza.Add(x); //Si no se anade el nro de pieza
                 }
             }
-
-            // Agarra la primera pieza aleatoria
+            ////////////////////////////////////////////
+            // Agarra la primera pieza aleatoria      //
+            ////////////////////////////////////////////
             sigtPiezaInt = SecuenciaPieza[0]; //Se almacena cual sera la siguiente pieza
             SecuenciaIteracionPieza++;  //Se aumenta para controlar que ya se hizo la secuencia de iteracion
-
+            ///////////////////////////////////////////////
             SoltarNuevaPieza(); //Se le llama a la funcion que suelta la nueva pieza
         }
 

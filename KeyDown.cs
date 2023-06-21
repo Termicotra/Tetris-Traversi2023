@@ -5,25 +5,31 @@ namespace Tetris
 {
     public partial class MainWindow : Form
     {
-        // Maneja los inputs - por cada presion de tecla
+        ////////////////////////////////////////////////////////////
+        //      Maneja los inputs - por cada presion de tecla     //
+        ////////////////////////////////////////////////////////////
         private void MainWindow_KeyDown(object sender, KeyEventArgs e)
         {
             if (!CheckGameOver() & ((e.KeyCode == Keys.Left | e.KeyCode == Keys.A) & TestMovimiento("left") == true))
             { //Comprueba que no se termino el juego, y que se presiono la flecha izquierda o la A, y testea si se puede hacer el mov a la izquierda
                 MoverPieza("left");
             }
+            ////////////////////////////////////////////////////////////////////////////////////////////////
             else if (!CheckGameOver() & ((e.KeyCode == Keys.Right | e.KeyCode == Keys.D) & TestMovimiento("right") == true))
             {//Comprueba que no se termino el juego, y que se presiono la flecha derecha o la D, y testea si se puede hacer el mov a la derecha
                 MoverPieza("right");
             }
+            ////////////////////////////////////////////////////////////////////////////////////////////////
             else if ((e.KeyCode == Keys.Down | e.KeyCode == Keys.S) & TestMovimiento("down") == true)
             {//Comprueba que se presiono la flecha abajo o la S, y testea si se puede hacer el mov abajo
                 MoverPieza("down");
             }
+            ////////////////////////////////////////////////////////////////////////////////////////////////
             else if (e.KeyCode == Keys.Up | e.KeyCode == Keys.W) //Comprueba si se presiono la flechita arriba o la W
             {
-                //Se obtiene las posiciones de cada cuadrito de la pieza
-
+                //////////////////////////////////////////////////////////////
+                //Se obtiene las posiciones de cada cuadrito de la pieza    //
+                //////////////////////////////////////////////////////////////
                 int square1Col = grid.GetColumn(PiezaActiva[0]);
                 int square1Row = grid.GetRow(PiezaActiva[0]);
 
@@ -35,7 +41,7 @@ namespace Tetris
 
                 int square4Col = grid.GetColumn(PiezaActiva[3]);
                 int square4Row = grid.GetRow(PiezaActiva[3]);
-
+                ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 if (piezaActual == 0) //La pieza I
                 {
                     //Testea si la pieza esta cerca de uno de los bordes del grid
@@ -83,6 +89,7 @@ namespace Tetris
                         }
                     }
                 }
+                ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 else if (piezaActual == 1) //La pieza L 
                 {
                     //Testea si la pieza esta cerca del borde
@@ -165,6 +172,7 @@ namespace Tetris
                         }
                     }
                 }
+                ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 else if (piezaActual == 2) //La J
                 {
                     //Controla si la pieza esta cerca del borde
@@ -247,6 +255,7 @@ namespace Tetris
                         }
                     }
                 }
+                ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 else if (piezaActual == 3) //La S
                 {
                     //Testea si se esta cerca del borde
@@ -297,6 +306,7 @@ namespace Tetris
                         }
                     }
                 }
+                ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 else if (piezaActual == 4) //La pieza Z
                 {
                     //Controla si se esta cerca del borde
@@ -341,11 +351,13 @@ namespace Tetris
                         }
                     }
                 }
+                //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 else if (piezaActual == 5) //Pieza O
                 {
                     //El cuadrado no se puede rotar
                     return;
                 }
+                ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 else if (piezaActual == 6) //Pieza T
                 {
                     //Controla si se esta cerca del borde
@@ -428,15 +440,16 @@ namespace Tetris
                         }
                     }
                 }
-
-                //Hace que la antigua posicion antes de la rotacion se convierta en el color del grid
+                //////////////////////////////////////////////////////////////////////////////////////////////
+                //Hace que la antigua posicion antes de la rotacion se convierta en el color del grid       //
+                //////////////////////////////////////////////////////////////////////////////////////////////
                 foreach (PictureBox square in PiezaActiva)
                 {
                     square.BackColor = Color.White; //Pinta cada cuadradito en blanco
                 }
-
+                ////////////////////////////////
                 DibujarFantasma(); //Por cada deteccion de tecla se vuelve a dibujar al fantasma abajo
-
+                ////////////////////////////////////////////////////////////////
                 //Todos los cuadraditos con sus nuevas posiciones los pone del color de la pieza
                 int x = 0;
                 foreach (PictureBox square in PiezaActiva2)
@@ -445,7 +458,9 @@ namespace Tetris
                     PiezaActiva[x] = square; //Asigna la posicion a el array de la pieza original
                     x++;
                 }
+                ////////////////////////////////
             }
+            ////////////////////////////////////////////////////////////////////////////////////////////////
             else if (!CheckGameOver() & e.KeyCode == Keys.X) //Comprueba si el juego ya acabo, y si se presiono la tecla de X
             {
                 // Si se presiono x se hace un drop de la ficha, osea un hard drop
@@ -460,6 +475,7 @@ namespace Tetris
                 }
                 SoltarNuevaPieza(); //Y se construye una nueva pieza para lanzar
             }
+            ////////////////////////////////////////////////////////////////////////////////////////////////
             else if (!CheckGameOver() & e.KeyCode == Keys.Space) //Comprueba si el juego ya acabo, y si se presiono la tecla de X
             {
                 // Si se presiono x se hace un drop de la ficha, osea un hard drop
