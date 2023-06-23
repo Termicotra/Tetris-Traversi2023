@@ -62,8 +62,8 @@ namespace Tetris
                 // Se vuelve a cargar las secuencias de piezas
                 SecuenciaPieza.Clear();
                 System.Random random = new System.Random();
-                while (SecuenciaPieza.Count < 7)
-                {
+                while (SecuenciaPieza.Count < 7)                //Esto sirve para tener una lista de las piezas siguientes, 
+                {                                               //que llegadas a 7 se resetean
                     int x = random.Next(7);
                     if (!SecuenciaPieza.Contains(x))
                     {
@@ -126,8 +126,9 @@ namespace Tetris
                 { box5, box6, box15, box16 },  // O pieza
                 { box6, box15, box16, box17 }  // T pieza
             };
-            ///////////////////////////////////////////////
-            // Pieza caida seleccionada
+            //////////////////////////////////////////////
+            //          Pieza caida seleccionada        //
+            //////////////////////////////////////////////
             for (int x = 0; x < 4; x++) //Ya que sabemos que hay 4 bloquecitos por pieza
             {
                 PiezaActiva[x] = PiezaActivaArray[piezaActual, x];  //Cargamos en el array de pieza actual, el diseno segun el array de disenos de piezas activas
@@ -381,14 +382,14 @@ namespace Tetris
         private void ClearFilaLlena()
         {
             int filaCompleta = CheckFilasLlenas();
-
+            ///////////////////////////////////////////////
             //Convierte esa fila en el color del grid
             for (int x = 0; x <= 9; x++) //Segun las columnas
             {
                 Control z = grid.GetControlFromPosition(x, filaCompleta); //Se obtiene el control que esta en esa posicion
                 z.BackColor = Color.White;  //Se cambia su color
             }
-
+            ///////////////////////////////////////////////
             //Mueve el resto de piezas abajo
             for (int x = filaCompleta - 1; x >= 0; x--) //Por cada fila arriba de la fila completa
             {
