@@ -458,7 +458,6 @@ namespace Tetris
                     PiezaActiva[x] = square; //Asigna la posicion a el array de la pieza original
                     x++;
                 }
-                ////////////////////////////////
             }
             ////////////////////////////////////////////////////////////////////////////////////////////////
             else if (!CheckGameOver() & e.KeyCode == Keys.X) //Comprueba si el juego ya acabo, y si se presiono la tecla de X
