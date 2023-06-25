@@ -24,7 +24,7 @@ namespace Tetris
             mainWindow.Show();  //Se esconde este formulario de menu, y se muestra el de la ventana principal
         }
         //////////////////////////////////////////////////////////////////
-        private void bReglas_Click(object sender, EventArgs e)      //Al darle al boton de reglas
+        private void bReglas_Click(object sender, EventArgs e)      //Al darle al boton de Reglas
         {
             MessageBox.Show("El jugador no puede impedir la caída de los tetriminos, pero puede decidir la rotación de la pieza" +
                 "\r\n(0°, 90°, 180°, 270°) y en qué lugar debe caer. Cuando una línea horizontal se completa, esa" +
