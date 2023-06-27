@@ -536,7 +536,7 @@ namespace Tetris
         //////////////////////////////////////
         private void LevelUp()
         {
-            nivel++; //Se aumenta el nivel
+            nivel++; //Se incrementa el nivel
             LevelLabel.Text = "Nivel: " + nivel.ToString(); //Actualiza el label del nivel
 
             // Milliseconds por cuadrito en caida
