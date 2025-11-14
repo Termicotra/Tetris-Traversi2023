@@ -474,7 +474,7 @@ namespace Tetris
                 }
                 SoltarNuevaPieza(); //Y se construye una nueva pieza para lanzar
             }
-            ////////////////////////////////////////////////////////////////////////////////////////////////
+            /////////////////////////////////////////////////////////////////////////////////////////////////
             else if (!CheckGameOver() & e.KeyCode == Keys.Space) //Comprueba si el juego ya acabo, y si se presiono la tecla de X
             {
                 // Si se presiono x se hace un drop de la ficha, osea un hard drop
